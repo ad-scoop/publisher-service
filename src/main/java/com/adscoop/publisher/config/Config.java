@@ -1,9 +1,9 @@
 package com.adscoop.publisher.config;
 
-import com.adscoop.publisher.services.BannerPublisherService;
-import com.adscoop.publisher.services.UploadFileService;
+import com.adscoop.publisher.services.BannerNodeService;
+import com.adscoop.publisher.services.BannerNodeServiceImpl;
 import com.google.inject.AbstractModule;
-import com.adscoop.publisher.handlers.BannerHandler;
+import com.adscoop.publisher.handlers.BannerPusherHandler;
 import com.adscoop.publisher.handlers.CorsHandler;
 
 /**
@@ -13,12 +13,12 @@ public class Config extends AbstractModule {
     @Override
     protected void configure() {
 
-        bind(BannerHandler.class);
+        bind(BannerPusherHandler.class);
 
         bind(CorsHandler.class).asEagerSingleton();
-        bind(BannerPublisherService.class);
+
         bind(JsonUtil.class).asEagerSingleton();
-        bind(UploadFileService.class).asEagerSingleton();
-        bind(Aws.class).asEagerSingleton();
+bind(BannerNodeService.class).to(BannerNodeServiceImpl.class).asEagerSingleton();
+
     }
 }

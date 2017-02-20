@@ -7,7 +7,7 @@ apply plugin: "idea"
 apply plugin: 'java'
 apply plugin: 'maven'
 
-
+apply plugin: 'com.bmuschko.docker-java-application'
 
 
 
@@ -22,7 +22,7 @@ buildscript {
     dependencies{
 
         classpath "io.ratpack:ratpack-gradle:1.4.1"
-
+        classpath 'com.bmuschko:gradle-docker-plugin:3.0.1'
     }
 
 
@@ -30,7 +30,12 @@ buildscript {
 
 
 
-
+docker {
+    javaApplication {
+        maintainer = 'Thomas Kleist "thomas@kleist-it.com"'
+        port = 8183
+    }
+}
 
 repositories {
     jcenter()
@@ -48,13 +53,14 @@ dependencies {
 
     compile group: 'org.neo4j', name: 'neo4j-ogm-core', version: '2.0.4'
 
-    compile group: 'com.adscoop', name: 'adbanner-entites', version: '1.0-SNAPSHOT'
 
 
     compile group: 'io.ratpack', name: 'ratpack-rx', version: '1.4.1'
-    compile group: 'com.adscoop', name: 'service-common', version: '1.0-SNAPSHOT'
+
     runtime 'org.apache.logging.log4j:log4j-slf4j-impl:2.0.2'
     runtime 'org.apache.logging.log4j:log4j-api:2.0.2'
     runtime 'org.apache.logging.log4j:log4j-core:2.0.2'
     compile group: 'com.google.code.gson', name: 'gson', version: '2.8.0'
 }
+
+mainClassName = 'StartPublisher'
