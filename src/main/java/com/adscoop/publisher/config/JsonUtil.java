@@ -1,8 +1,7 @@
 package com.adscoop.publisher.config;
 
-import com.adscoop.entiites.BannerNode;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.databind.ObjectMapper;
+
+import com.adscoop.publisher.entites.BannerNode;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 
