@@ -13,7 +13,7 @@ public class Config extends AbstractModule {
     @Override
     protected void configure() {
 
-        bind(BannerPusherHandler.class);
+        bind(BannerPusherHandler.class).asEagerSingleton();
 
         bind(CorsHandler.class).asEagerSingleton();
 
