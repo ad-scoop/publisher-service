@@ -3,20 +3,21 @@ package com.adscoop.publisher.services;
 import com.adscoop.publisher.entites.BannerNode;
 import com.google.inject.Inject;
 import org.neo4j.ogm.session.Session;
-import ratpack.exec.Promise;
+import rx.Observable;
 
+import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Optional;
+import java.util.List;
 
 /**
  * Created by kleistit on 20/02/2017.
  */
-public class BannerNodeServiceImpl implements BannerNodeService {
+public class BannerNodeServiceImpl   implements BannerNodeService {
 
 
     private Session session;
 
-
+private List<BannerNode> list = new ArrayList<>();
     @Inject
     public BannerNodeServiceImpl(Session session) {
         this.session = session;
@@ -24,10 +25,10 @@ public class BannerNodeServiceImpl implements BannerNodeService {
 
 
     @Override
-    public Promise<Iterable<BannerNode>> getListWithReserveredTokens() throws Exception {
+    public Observable<BannerNode> getListWithReserveredTokens() throws Exception {
         try {
 
-            return Promise.value(session.query(BannerNode.class, "match (b:BannerNode) return b", Collections.emptyMap()));
+            return Observable.from(getList());
         } catch (Exception e) {
             throw new Exception(e.getMessage());
 
@@ -35,4 +36,21 @@ public class BannerNodeServiceImpl implements BannerNodeService {
 
 
     }
+
+    private List<BannerNode> getList(){
+
+       Iterable<BannerNode> bannerNodes =  session.query(BannerNode.class, "match (b:BannerNode) return b limit 10000", Collections.EMPTY_MAP);
+
+       bannerNodes.iterator().forEachRemaining( bannerNode ->  {
+           if(!bannerNode.getBannerSpaceToken().isEmpty()) {
+               list.add(bannerNode);
+           }
+
+
+       });
+
+       return list;
+    }
+
+
 }

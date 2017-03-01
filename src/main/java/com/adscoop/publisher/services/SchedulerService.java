@@ -1,6 +1,6 @@
 package com.adscoop.publisher.services;
 
-import org.knowm.sundial.SundialJobScheduler;
+
 import ratpack.service.Service;
 import ratpack.service.StartEvent;
 import ratpack.service.StopEvent;
@@ -36,11 +36,11 @@ public class SchedulerService  implements Service{
 
 
     private  void  init(){
-        SundialJobScheduler.startScheduler("com.adscoop.publisher.jobs");
+
 
     }
 
     private void close(){
-        SundialJobScheduler.shutdown();
+
     }
 }

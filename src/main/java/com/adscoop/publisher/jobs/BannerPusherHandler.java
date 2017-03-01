@@ -5,9 +5,7 @@ import com.adscoop.publisher.config.JsonUtil;
 import com.adscoop.publisher.entites.BannerNode;
 import com.adscoop.publisher.services.BannerNodeService;
 import com.google.inject.Inject;
-import org.knowm.sundial.Job;
-import org.knowm.sundial.annotations.CronTrigger;
-import org.knowm.sundial.exceptions.JobInterruptException;
+
 import org.reactivestreams.Publisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,8 +27,8 @@ import static ratpack.stream.Streams.periodically;
 /**
  * Created by thokle on 28/10/2016.
  */
-@CronTrigger(cron = "0/5 * * * * ?")
-public class BannerPusherHandler extends Job implements Handler {
+
+public class BannerPusherHandler  implements Handler {
 
     private static Logger logger = LoggerFactory.getLogger(BannerPusherHandler.class);
 
@@ -50,9 +48,10 @@ public class BannerPusherHandler extends Job implements Handler {
         String token = ctx.getPathTokens().get("token").toString();
         logger.debug("token" + token);
 
-        RxRatpack.observeEach(BannerNodeService.getListWithReserveredTokens()).filter( f -> f).ctx.getPathTokens().get("token").toString())).map(map -> jsonUtil.bannerString(map))).then(banners -> {
-            ctx.getResponse().contentType("application/octet-stream");
-            Publisher<String> bannerPublisher = periodically(ctx, Duration.ofSeconds(2), ban -> ban < banners.size() ? banners.get(ban) : null);
+        RxRatpack.promise(bannerNodeService.getListWithReserveredTokens().filter(bannerNode -> !bannerNode.getBannerSpaceToken().isEmpty() && bannerNode.getBannerSpaceToken().size()>0 && bannerNode.getBannerSpaceToken().contains(token) ).map(JsonUtil::bannerString))
+        .then(b -> { ctx.getResponse().contentType("application/octet-stream");
+
+            Publisher<String> bannerPublisher = periodically(ctx, Duration.ofSeconds(2), ban -> ban < b.size() ? b.get(ban) : null);
 
             ServerSentEvents serverSentEvents = ServerSentEvents.serverSentEvents(bannerPublisher, f -> {
 
@@ -67,20 +66,9 @@ public class BannerPusherHandler extends Job implements Handler {
     }
 
 
-    private List<BannerNode> bannerList() throws Exception {
-        Duration duration = Duration.ofSeconds(3);
-
-        Promise<Iterable<BannerNode>> bannerNodes = bannerNodeService.getListWithReserveredTokens();
-
-       
-       
-       
-       
-       
 
 
-        return getBannerNodes();
-    }
+
 
 
     private List<BannerNode> getBannerNodes() {
@@ -88,13 +76,4 @@ public class BannerPusherHandler extends Job implements Handler {
     }
 
 
-    @Override
-    public void doRun() throws JobInterruptException {
-        try {
-
-            bannerList().forEach(bannerNode -> logger.debug("loffff "+bannerNode.getPictureUrl()));
-        } catch (Exception e) {
-           logger.debug(e.getMessage());
-        }
-    }
 }

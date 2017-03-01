@@ -10,7 +10,7 @@ import com.google.inject.Inject;
  */
 public class JsonUtil {
 
-    Gson gson;
+   private static Gson gson;
 
     @Inject
     public JsonUtil(Gson gson) {
@@ -18,7 +18,7 @@ public class JsonUtil {
     }
 
 
-    public String bannerString(BannerNode bannerNode) {
+    public static String bannerString(BannerNode bannerNode) {
 
         return gson.toJson(bannerNode);
 
