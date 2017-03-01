@@ -14,12 +14,12 @@ apply plugin: 'com.bmuschko.docker-java-application'
 
 buildscript {
 
-    repositories{
+    repositories {
         jcenter()
         mavenCentral()
         mavenLocal()
     }
-    dependencies{
+    dependencies {
 
         classpath "io.ratpack:ratpack-gradle:1.4.1"
         classpath 'com.bmuschko:gradle-docker-plugin:3.0.1'
@@ -45,14 +45,14 @@ repositories {
 
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.11'
-    compile  group:  'io.ratpack', name: 'ratpack-guice', version: '1.4.1'
-    compile  group:  'io.ratpack', name: 'ratpack-rx', version: '1.4.1'
+    compile group: 'io.ratpack', name: 'ratpack-guice', version: '1.4.1'
+    compile group: 'io.ratpack', name: 'ratpack-rx', version: '1.4.1'
 
     compile group: 'org.neo4j', name: 'neo4j-ogm-bolt-driver', version: '2.0.4'
     compile group: 'com.google.code.gson', name: 'gson', version: '2.6.2'
 
     compile group: 'org.neo4j', name: 'neo4j-ogm-core', version: '2.0.4'
-
+    compile 'org.knowm:sundial:2.1.1'
 
 
     compile group: 'io.ratpack', name: 'ratpack-rx', version: '1.4.1'

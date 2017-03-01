@@ -1,23 +1,21 @@
 package com.adscoop.publisher.entites;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotations.Labels;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
-import org.neo4j.ogm.annotations.Labels;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 /**
  * Created by thokle on 01/10/2016.
  */
 @NodeEntity
-public class Company  extends Entity {
-
+public class Company extends Entity {
 
 
     private String companyname;
@@ -32,15 +30,15 @@ public class Company  extends Entity {
     @Relationship(direction = "INCOMING", type = "USER_HAS_COMPANY")
     private Set<UserNode> userNodes = new HashSet<>();
 
-    @Relationship(direction = Relationship.OUTGOING , type = "COMPANY_HAS_ADDRESS")
-    private  Set<AddressNode> addressNodes = new HashSet<>();
+    @Relationship(direction = Relationship.OUTGOING, type = "COMPANY_HAS_ADDRESS")
+    private Set<AddressNode> addressNodes = new HashSet<>();
 
-    @Relationship(direction = Relationship.OUTGOING , type = "COMPANY_HAS_BRANCH")
+    @Relationship(direction = Relationship.OUTGOING, type = "COMPANY_HAS_BRANCH")
     private Set<Branches> branches = new HashSet<>();
 
 
-   @Relationship(direction = Relationship.OUTGOING, type = "COMPANY_HAS_WEBSITE")
-   private Set<WebSiteNode> webSiteNodes = new HashSet<>();
+    @Relationship(direction = Relationship.OUTGOING, type = "COMPANY_HAS_WEBSITE")
+    private Set<WebSiteNode> webSiteNodes = new HashSet<>();
 
 
     public String getCompanyname() {
@@ -60,7 +58,6 @@ public class Company  extends Entity {
     }
 
 
-
     public Long getCvr() {
         return cvr;
     }
@@ -77,7 +74,7 @@ public class Company  extends Entity {
         this.labeles = labeles;
     }
 
-   @JsonIgnore
+    @JsonIgnore
     public Set<UserNode> getUserNodes() {
 
         return userNodes;
@@ -91,17 +88,17 @@ public class Company  extends Entity {
         this.labeles.add(label);
     }
 
-    public   void addAddress(AddressNode addressNode){
+    public void addAddress(AddressNode addressNode) {
         addressNodes.add(addressNode);
         addressNode.getCompanyNodes().add(this);
     }
 
-    public void addBrandh(Branches branches){
+    public void addBrandh(Branches branches) {
         this.branches.add(branches);
         branches.getCompanyNodes().add(this);
     }
 
-    public void addWebSite(WebSiteNode webSiteNode){
+    public void addWebSite(WebSiteNode webSiteNode) {
         this.webSiteNodes.add(webSiteNode);
         webSiteNode.getCompanyNodes().add(this);
 

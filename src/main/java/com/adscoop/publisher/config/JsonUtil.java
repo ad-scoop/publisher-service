@@ -10,16 +10,17 @@ import com.google.inject.Inject;
  */
 public class JsonUtil {
 
-  Gson gson;
-   @Inject
+    Gson gson;
+
+    @Inject
     public JsonUtil(Gson gson) {
         this.gson = gson;
     }
 
 
-    public String bannerString(BannerNode bannerNode){
+    public String bannerString(BannerNode bannerNode) {
 
-           return gson.toJson(bannerNode);
+        return gson.toJson(bannerNode);
 
 
     }

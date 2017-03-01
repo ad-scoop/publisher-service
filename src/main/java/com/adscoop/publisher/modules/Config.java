@@ -6,10 +6,10 @@ package com.adscoop.publisher.modules;
 public class Config {
 
 
-    private  String driver_class_name;
-    private  String username;
-    private  String password;
-    private  String neo4Url;
+    private String driver_class_name;
+    private String username;
+    private String password;
+    private String neo4Url;
 
     public String getDriver_class_name() {
         return driver_class_name;

@@ -8,9 +8,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class AuthEntity {
 
     @JsonProperty
-private String username;
+    private String username;
     @JsonProperty
-private String password;
+    private String password;
 
 
     public String getUsername() {

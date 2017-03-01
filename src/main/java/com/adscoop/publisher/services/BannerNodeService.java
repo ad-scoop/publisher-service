@@ -1,6 +1,7 @@
 package com.adscoop.publisher.services;
 
 import com.adscoop.publisher.entites.BannerNode;
+import ratpack.exec.Promise;
 
 import java.util.Optional;
 
@@ -10,6 +11,6 @@ import java.util.Optional;
 public interface BannerNodeService {
 
 
-    Optional<Iterable<BannerNode>> getListWithReserveredTokens() throws Exception;
+    Promise<Iterable<BannerNode>> getListWithReserveredTokens() throws Exception;
 
 }

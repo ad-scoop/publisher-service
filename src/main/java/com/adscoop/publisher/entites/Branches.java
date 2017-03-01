@@ -1,13 +1,13 @@
 package com.adscoop.publisher.entites;
 
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotations.Labels;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
-import org.neo4j.ogm.annotations.Labels;
 
 
 /**
@@ -16,7 +16,7 @@ import org.neo4j.ogm.annotations.Labels;
 @NodeEntity
 public class Branches extends Entity {
 
-    private  String name;
+    private String name;
 
     @Labels
     private List<String> labels = new ArrayList<>();
@@ -27,10 +27,10 @@ public class Branches extends Entity {
     @Relationship(direction = Relationship.OUTGOING, type = "BRANCH_HAS_ADDRESS")
     private Set<AddressNode> addressNodeList = new HashSet<>();
 
-    @Relationship(direction = Relationship.INCOMING , type = "BRANCH_BELONGS_TO")
+    @Relationship(direction = Relationship.INCOMING, type = "BRANCH_BELONGS_TO")
     private Set<Company> companyNodes = new HashSet<>();
 
-    @Relationship(direction = Relationship.OUTGOING , type="CATEGORIES")
+    @Relationship(direction = Relationship.OUTGOING, type = "CATEGORIES")
     private Set<Category> categories = new HashSet<>();
 
 

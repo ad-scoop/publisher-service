@@ -1,13 +1,13 @@
 package com.adscoop.publisher.entites;
 
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotations.Labels;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
-import org.neo4j.ogm.annotations.Labels;
 
 
 /**
@@ -19,9 +19,8 @@ public class FootPrintInformationNode extends Entity {
     @Labels
     private List<String> list = new ArrayList<>();
 
-    @Relationship(type = "BELONGS_TO_BANNER",direction = Relationship.INCOMING)
-    private   List<BannerNode> bannerNodeSet = new ArrayList<>();
-
+    @Relationship(type = "BELONGS_TO_BANNER", direction = Relationship.INCOMING)
+    private List<BannerNode> bannerNodeSet = new ArrayList<>();
 
 
     private Map<String, Object> information = new HashMap<>();

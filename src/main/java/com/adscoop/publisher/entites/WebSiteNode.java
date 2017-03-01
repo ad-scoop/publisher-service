@@ -1,12 +1,11 @@
 package com.adscoop.publisher.entites;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by thokle on 18/10/2016.
@@ -23,8 +22,8 @@ public class WebSiteNode extends Entity {
     private Set<BannerSpace> bannerSpaceSet = new HashSet<>();
 
 
-    @Relationship(type ="COMPANY_HAS_WEBSITE ", direction = Relationship.INCOMING)
-    private  Set<Company> companyNodes = new HashSet<>();
+    @Relationship(type = "COMPANY_HAS_WEBSITE ", direction = Relationship.INCOMING)
+    private Set<Company> companyNodes = new HashSet<>();
 
 
     public int getPort() {
@@ -68,7 +67,7 @@ public class WebSiteNode extends Entity {
         this.companyNodes = companyNodes;
     }
 
-    public void addBannerSpace(BannerSpace bannerSpace){
+    public void addBannerSpace(BannerSpace bannerSpace) {
         bannerSpaceSet.add(bannerSpace);
         bannerSpace.getWebSiteNodeSet().add(this);
     }

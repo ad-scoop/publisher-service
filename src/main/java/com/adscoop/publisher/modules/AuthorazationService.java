@@ -1,13 +1,12 @@
 package com.adscoop.publisher.modules;
 
 
-import java.util.Collections;
-import java.util.Optional;
-
 import com.adscoop.publisher.entites.UserNode;
+import com.google.inject.Inject;
 import org.neo4j.ogm.session.Session;
 
-import com.google.inject.Inject;
+import java.util.Collections;
+import java.util.Optional;
 
 /**
  * Created by thokle on 04/12/2016.
@@ -36,7 +35,7 @@ public class AuthorazationService {
     public Optional<UserNode> tokenExist(String token) {
         Optional<UserNode> userNode = Optional.empty();
 
-        userNode = Optional.ofNullable(session.queryForObject(UserNode.class, "match (u) where  u.token='"+token+"' return u",Collections.emptyMap()));
+        userNode = Optional.ofNullable(session.queryForObject(UserNode.class, "match (u) where  u.token='" + token + "' return u", Collections.emptyMap()));
 
         return userNode;
     }

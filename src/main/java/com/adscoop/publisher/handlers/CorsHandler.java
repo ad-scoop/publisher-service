@@ -11,7 +11,8 @@ import ratpack.http.MutableHeaders;
  */
 public class CorsHandler implements Handler {
 
-private static Logger logger  = LoggerFactory.getLogger(CorsHandler.class);
+    private static Logger logger = LoggerFactory.getLogger(CorsHandler.class);
+
     @Override
     public void handle(Context ctx) throws Exception {
         logger.debug("Cors handler");
@@ -19,9 +20,9 @@ private static Logger logger  = LoggerFactory.getLogger(CorsHandler.class);
 
         mutableHeaders.set("Access-Control-Allow-Origin", "*");
         mutableHeaders.set("Access-Control-Allow-Headers", "x-requested-with, origin, content-type, accept");
-        mutableHeaders.set("Content-Type","text/event-stream");
-        mutableHeaders.set("Content-Type","application/octet-stream");
-        mutableHeaders.set("Connection","keep-alive");
+        mutableHeaders.set("Content-Type", "text/event-stream");
+        mutableHeaders.set("Content-Type", "application/octet-stream");
+        mutableHeaders.set("Connection", "keep-alive");
 
 
         ctx.next();

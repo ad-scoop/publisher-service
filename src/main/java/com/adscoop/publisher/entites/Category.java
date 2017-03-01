@@ -1,13 +1,13 @@
 package com.adscoop.publisher.entites;
 
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotations.Labels;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
-import org.neo4j.ogm.annotations.Labels;
 
 
 /**
@@ -21,11 +21,11 @@ public class Category extends Entity {
     private List<String> labels = new ArrayList<>();
 
 
-    @Relationship(type = "BELONGS_TO_BANNER",direction = Relationship.INCOMING)
+    @Relationship(type = "BELONGS_TO_BANNER", direction = Relationship.INCOMING)
     private Set<BannerNode> catbannerNodes = new HashSet<>();
 
-   @Relationship(type = "BELONGS_TO_BANNERSPACE",direction = Relationship.INCOMING)
-   private Set<BannerSpace> catBannerSpaces = new HashSet<>();
+    @Relationship(type = "BELONGS_TO_BANNERSPACE", direction = Relationship.INCOMING)
+    private Set<BannerSpace> catBannerSpaces = new HashSet<>();
 
     private String name;
     private String value;
@@ -55,7 +55,7 @@ public class Category extends Entity {
         this.value = value;
     }
 
-    public void setLabel(String s){
+    public void setLabel(String s) {
         this.labels.add(s);
     }
 

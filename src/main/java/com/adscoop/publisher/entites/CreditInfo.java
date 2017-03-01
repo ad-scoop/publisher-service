@@ -1,13 +1,13 @@
 package com.adscoop.publisher.entites;
 
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotations.Labels;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
-import org.neo4j.ogm.annotations.Labels;
 
 
 /**
@@ -15,10 +15,10 @@ import org.neo4j.ogm.annotations.Labels;
  */
 
 @NodeEntity
-public class CreditInfo  extends Entity {
+public class CreditInfo extends Entity {
 
 
-    @Relationship(type = "USER_HAS_CREDITINFO",  direction = Relationship.INCOMING)
+    @Relationship(type = "USER_HAS_CREDITINFO", direction = Relationship.INCOMING)
     Set<UserNode> userNodeSet = new HashSet<>();
     @Labels
     private List<String> labels = new ArrayList<>();
@@ -66,7 +66,7 @@ public class CreditInfo  extends Entity {
         return userNodeSet;
     }
 
-    public void setLabel(String s){
+    public void setLabel(String s) {
         this.labels.add(s);
     }
 

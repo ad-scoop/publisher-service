@@ -1,9 +1,9 @@
 package com.adscoop.publisher.entites;
 
-import java.util.*;
-
 import org.neo4j.ogm.annotation.Relationship;
 import org.neo4j.ogm.annotations.Labels;
+
+import java.util.*;
 
 /**
  * Created by thokle on 25/08/2016.
@@ -14,14 +14,14 @@ public class TargetGroups extends Entity {
     private List<String> labels = new ArrayList<>();
 
 
-    private Map<String, Object> targetGroups  = new HashMap<>();
+    private Map<String, Object> targetGroups = new HashMap<>();
 
     @Relationship(direction = Relationship.INCOMING, type = "TARGET_BELONGS_TO_BANNERSPACE")
     private Set<BannerSpace> tarbannerSpaceSet = new HashSet<>();
 
 
     @Relationship(direction = Relationship.INCOMING, type = "TARGET_BELONGS_TO_BANNER")
-    private  Set<BannerNode> tarbannerNodes = new HashSet<>();
+    private Set<BannerNode> tarbannerNodes = new HashSet<>();
 
 
     public List<String> getLabels() {
@@ -48,8 +48,8 @@ public class TargetGroups extends Entity {
         this.tarbannerNodes = tarbannerNodes;
     }
 
-    public void addTargerVariable(String key, Object value){
+    public void addTargerVariable(String key, Object value) {
 
-        targetGroups.put(key,value);
+        targetGroups.put(key, value);
     }
 }

@@ -1,10 +1,10 @@
 package com.adscoop.publisher.entites;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import org.neo4j.ogm.annotation.NodeEntity;
 import org.neo4j.ogm.annotation.Relationship;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -17,11 +17,9 @@ public class AccountInformation extends Entity {
     private Integer regnr;
     private Integer accountnr;
     private String bankname;
-private CardType cardType;
+    private CardType cardType;
     @Relationship(type = "HAS_ACCOUNT_INFORMATION", direction = Relationship.INCOMING)
     private Set<UserNode> userNodeSet = new HashSet<>();
-
-
 
 
     public Integer getRegnr() {

@@ -1,23 +1,21 @@
 package com.adscoop.publisher.entites;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.neo4j.ogm.annotation.NodeEntity;
+import org.neo4j.ogm.annotation.Relationship;
+import org.neo4j.ogm.annotations.Labels;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.neo4j.ogm.annotation.NodeEntity;
-import org.neo4j.ogm.annotation.Relationship;
-import org.neo4j.ogm.annotations.Labels;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 /**
  * Created by thokle on 24/08/2016.
  */
 @NodeEntity
-public class BannerSpace  extends Entity {
-
+public class BannerSpace extends Entity {
 
 
     private String userId;
@@ -28,11 +26,11 @@ public class BannerSpace  extends Entity {
 
     private String positionSiteL;
 
-        private URL Url;
+    private URL Url;
 
     private String uniqeToken;
 
-   private Double price;
+    private Double price;
 
     private Integer lattiude;
 
@@ -47,12 +45,12 @@ public class BannerSpace  extends Entity {
     @Relationship(type = "BELONGS_TO_WEBSITE", direction = Relationship.INCOMING)
     private Set<WebSiteNode> webSiteNodeSet = new HashSet<>();
 
-    @Relationship(type = "BANNERSPACE_HAS_BANNERS" , direction = Relationship.OUTGOING)
+    @Relationship(type = "BANNERSPACE_HAS_BANNERS", direction = Relationship.OUTGOING)
     private Set<BannerNode> bannerNodesbannerSpaces = new HashSet<>();
 
 
-    @Relationship(type = "HAS_CATEGORIES" , direction = Relationship.OUTGOING)
-    private  Set<Category> categories = new HashSet<>();
+    @Relationship(type = "HAS_CATEGORIES", direction = Relationship.OUTGOING)
+    private Set<Category> categories = new HashSet<>();
 
     public String getDomain() {
         return domain;
@@ -134,7 +132,7 @@ public class BannerSpace  extends Entity {
         this.labels = labels;
     }
 
-    public void setLabel(String label){
+    public void setLabel(String label) {
         this.labels.add(label);
     }
 
@@ -165,14 +163,13 @@ public class BannerSpace  extends Entity {
     }
 
 
-    public  void addCategory(Category category){
+    public void addCategory(Category category) {
         categories.add(category);
         category.getBannerSpaces().add(this);
     }
 
 
-
-    public void addRegion(Regions regions){
+    public void addRegion(Regions regions) {
         getRegions().add(regions);
         regions.getBannerSpaces().add(this);
 
