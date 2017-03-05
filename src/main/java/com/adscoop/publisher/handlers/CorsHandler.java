@@ -21,7 +21,7 @@ public class CorsHandler implements Handler {
         mutableHeaders.set("Access-Control-Allow-Origin", "*");
         mutableHeaders.set("Access-Control-Allow-Headers", "x-requested-with, origin, content-type, accept");
         mutableHeaders.set("Content-Type", "text/event-stream");
-        mutableHeaders.set("Content-Type", "application/octet-stream");
+
         mutableHeaders.set("Connection", "keep-alive");
 
 

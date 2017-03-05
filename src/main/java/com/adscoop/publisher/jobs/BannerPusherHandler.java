@@ -35,29 +35,29 @@ public class BannerPusherHandler  implements Handler {
 
     private JsonUtil jsonUtil;
     private BannerNodeService bannerNodeService;
-    private List<com.adscoop.publisher.entites.BannerNode> bannerNodes;
 
 
-
-
+    @Inject
+    public BannerPusherHandler(JsonUtil jsonUtil, BannerNodeService bannerNodeService) {
+        this.jsonUtil = jsonUtil;
+        this.bannerNodeService = bannerNodeService;
+    }
 
     @Override
     public void handle(Context ctx) throws Exception, IOException {
-        BannerNodeService bannerNodeService = ctx.get(BannerNodeService.class);
-        JsonUtil jsonUtil = ctx.get(JsonUtil.class);
+
         String token = ctx.getPathTokens().get("token").toString();
         logger.debug("token" + token);
 
         RxRatpack.promise(bannerNodeService.getListWithReserveredTokens().filter(bannerNode -> !bannerNode.getBannerSpaceToken().isEmpty() && bannerNode.getBannerSpaceToken().size()>0 && bannerNode.getBannerSpaceToken().contains(token) ).map(JsonUtil::bannerString))
-        .then(b -> { ctx.getResponse().contentType("application/octet-stream");
-
+        .then(b -> {
             Publisher<String> bannerPublisher = periodically(ctx, Duration.ofSeconds(2), ban -> ban < b.size() ? b.get(ban) : null);
 
             ServerSentEvents serverSentEvents = ServerSentEvents.serverSentEvents(bannerPublisher, f -> {
 
-                f.id(Objects::toString).event("Banner").event(banner -> "Banner" + banner);
+                f.id(Objects::toString).event("Banner").event("counter").data(banner ->   banner);
             });
-            logger.debug("PUSHED TO STREAM= " + serverSentEvents.getPublisher().toString());
+            logger.debug("PUSHED TO STREAM= " + b);
             ctx.render(serverSentEvents);
 
         });
@@ -71,9 +71,7 @@ public class BannerPusherHandler  implements Handler {
 
 
 
-    private List<BannerNode> getBannerNodes() {
-        return bannerNodes;
-    }
+
 
 
 }
