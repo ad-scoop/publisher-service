@@ -1,6 +1,6 @@
 package com.adscoop.publisher.services;
 
-import com.adscoop.publisher.entites.BannerNode;
+import com.adscoop.publisher.entites.Banner;
 import rx.Observable;
 
 /**
@@ -9,6 +9,6 @@ import rx.Observable;
 public interface BannerNodeService {
 
 
-    Observable<BannerNode> getListWithReserveredTokens() throws Exception;
+    Observable<Banner> getListWithReserveredTokens() throws Exception;
 
 }

@@ -2,25 +2,20 @@ package com.adscoop.publisher.jobs;
 
 
 import com.adscoop.publisher.config.JsonUtil;
-import com.adscoop.publisher.entites.BannerNode;
 import com.adscoop.publisher.services.BannerNodeService;
 import com.google.inject.Inject;
 
 import org.reactivestreams.Publisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ratpack.exec.Promise;
 import ratpack.handling.Context;
 import ratpack.handling.Handler;
 import ratpack.rx.RxRatpack;
 import ratpack.sse.ServerSentEvents;
-import rx.Observable;
 
 import java.io.IOException;
 import java.time.Duration;
-import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import static ratpack.stream.Streams.periodically;
 
@@ -49,7 +44,7 @@ public class BannerPusherHandler  implements Handler {
         String token = ctx.getPathTokens().get("token").toString();
         logger.debug("token" + token);
 
-        RxRatpack.promise(bannerNodeService.getListWithReserveredTokens().filter(bannerNode -> !bannerNode.getBannerSpaceToken().isEmpty() && bannerNode.getBannerSpaceToken().size()>0 && bannerNode.getBannerSpaceToken().contains(token) ).map(JsonUtil::bannerString))
+        RxRatpack.promise(bannerNodeService.getListWithReserveredTokens().filter(bannerNode -> !bannerNode.getBannerSpaceToken().isEmpty() && bannerNode.getBannerSpaceToken().length()>0 && bannerNode.getBannerSpaceToken().contains(token) ).map(JsonUtil::bannerString))
         .then(b -> {
             Publisher<String> bannerPublisher = periodically(ctx, Duration.ofSeconds(2), ban -> ban < b.size() ? b.get(ban) : null);
 

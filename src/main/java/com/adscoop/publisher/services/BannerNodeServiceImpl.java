@@ -1,32 +1,26 @@
 package com.adscoop.publisher.services;
 
-import com.adscoop.publisher.entites.BannerNode;
+import com.adscoop.publisher.entites.Banner;
 import com.google.inject.Inject;
-import org.knowm.sundial.Job;
-import org.knowm.sundial.annotations.CronTrigger;
-import org.knowm.sundial.exceptions.JobInterruptException;
+
 import org.neo4j.ogm.session.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import rx.Observable;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.TimerTask;
+import java.util.*;
 
 /**
  * Created by kleistit on 20/02/2017.
  */
-@CronTrigger(cron = "0/5 * * * * ?")
-public class BannerNodeServiceImpl  extends TimerTask implements BannerNodeService {
+public class BannerNodeServiceImpl   implements BannerNodeService {
 private  static Logger logger = LoggerFactory.getLogger(BannerNodeServiceImpl.class);
 
     private Session session;
 
 
 
-    private List<BannerNode> list = new ArrayList<>();
+    private List<Banner> list = new ArrayList<>();
 
     @Inject
     public BannerNodeServiceImpl(Session session) {
@@ -36,7 +30,7 @@ private  static Logger logger = LoggerFactory.getLogger(BannerNodeServiceImpl.cl
 
 
     @Override
-    public Observable<BannerNode> getListWithReserveredTokens() throws Exception {
+    public Observable<Banner> getListWithReserveredTokens() throws Exception {
         try {
 
             return Observable.from(getList());
@@ -46,28 +40,28 @@ private  static Logger logger = LoggerFactory.getLogger(BannerNodeServiceImpl.cl
         }
 
 
+
     }
 
-    @Override
-    public void run() {
 
-        getList();
-    }
 
-    private List<BannerNode> getList(){
+    private List<Banner> getList(){
 
-       Iterable<BannerNode> bannerNodes =  session.query(BannerNode.class, "match (b:BannerNode) return b limit 10000", Collections.EMPTY_MAP);
+       Iterable<Banner> bannerNodes =  session.query(Banner.class, "match (b:BannerNode) return b limit 10000", Collections.EMPTY_MAP);
 
        bannerNodes.iterator().forEachRemaining( bannerNode ->  {
-           if(bannerNode.getBannerSpaceToken() !=null) {
-               list.add(bannerNode);
-           }
-
 
        });
+return  null;
 
-       return list;
     }
 
 
+
+    private  boolean validIsExpired(int startday, int startMonth, int startYear, int endday, int endMonth ,int endyear){
+
+
+return true;
+
+    }
 }

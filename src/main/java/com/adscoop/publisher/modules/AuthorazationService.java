@@ -1,7 +1,6 @@
 package com.adscoop.publisher.modules;
 
 
-import com.adscoop.publisher.entites.UserNode;
 import com.google.inject.Inject;
 import org.neo4j.ogm.session.Session;
 
