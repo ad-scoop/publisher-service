@@ -2,20 +2,14 @@ package com.adscoop.publisher.jobs;
 
 
 import com.adscoop.publisher.config.JsonUtil;
-import com.adscoop.publisher.services.BannerNodeService;
 import com.google.inject.Inject;
 
-import org.reactivestreams.Publisher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ratpack.handling.Context;
 import ratpack.handling.Handler;
-import ratpack.rx.RxRatpack;
-import ratpack.sse.ServerSentEvents;
 
 import java.io.IOException;
-import java.time.Duration;
-import java.util.Objects;
 
 import static ratpack.stream.Streams.periodically;
 
@@ -29,11 +23,11 @@ public class BannerPusherHandler  implements Handler {
 
 
     private JsonUtil jsonUtil;
-    private BannerNodeService bannerNodeService;
+    private BannerNodeServiceImpl bannerNodeService;
 
 
     @Inject
-    public BannerPusherHandler(JsonUtil jsonUtil, BannerNodeService bannerNodeService) {
+    public BannerPusherHandler(JsonUtil jsonUtil, BannerNodeServiceImpl bannerNodeService) {
         this.jsonUtil = jsonUtil;
         this.bannerNodeService = bannerNodeService;
     }
@@ -43,9 +37,8 @@ public class BannerPusherHandler  implements Handler {
 
         String token = ctx.getPathTokens().get("token").toString();
         logger.debug("token" + token);
-
-        RxRatpack.promise(bannerNodeService.getListWithReserveredTokens().filter(bannerNode -> !bannerNode.getBannerSpaceToken().isEmpty() && bannerNode.getBannerSpaceToken().length()>0 && bannerNode.getBannerSpaceToken().contains(token) ).map(JsonUtil::bannerString))
-        .then(b -> {
+/**
+        RxRatpack.promise(bannerNodeService.getListWithReserveredTokens().filter(bannerNode -> !bannerNode.getToken().isEmpty() && bannerNode.getToken().length()>0 && bannerNode.getToken().contains(token)).forEach( b -> {
             Publisher<String> bannerPublisher = periodically(ctx, Duration.ofSeconds(2), ban -> ban < b.size() ? b.get(ban) : null);
 
             ServerSentEvents serverSentEvents = ServerSentEvents.serverSentEvents(bannerPublisher, f -> {
@@ -55,7 +48,9 @@ public class BannerPusherHandler  implements Handler {
             logger.debug("PUSHED TO STREAM= " + b);
             ctx.render(serverSentEvents);
 
-        });
+        }); */
+
+
 
 
     }
