@@ -1,6 +1,7 @@
 package com.adscoop.publisher.config;
 
 
+import com.adscoop.publisher.entites.PushBanner;
 import com.google.gson.Gson;
 import com.google.inject.Inject;
 
@@ -17,7 +18,7 @@ public class JsonUtil {
     }
 
 
-    public static String bannerString(BannerNode bannerNode) {
+    public static String bannerString(PushBanner bannerNode) {
 
         return gson.toJson(bannerNode);
 
