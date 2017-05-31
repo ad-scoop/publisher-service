@@ -11,11 +11,9 @@ import ratpack.http.MutableHeaders;
  */
 public class CorsHandler implements Handler {
 
-    private static Logger logger = LoggerFactory.getLogger(CorsHandler.class);
-
     @Override
     public void handle(Context ctx) throws Exception {
-        logger.debug("Cors handler");
+
         MutableHeaders mutableHeaders = ctx.getResponse().getHeaders();
 
         mutableHeaders.set("Access-Control-Allow-Origin", "*");

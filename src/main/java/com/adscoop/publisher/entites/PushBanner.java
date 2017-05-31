@@ -1,20 +1,25 @@
 package com.adscoop.publisher.entites;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+import org.neo4j.ogm.annotation.NodeEntity;
 
 /**
  * Created by kleistit on 14/05/2017.
  */
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+@Getter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class PushBanner {
 
 
     @Getter
     @Setter
-    private StringBuffer img_url;
+    private String img_url;
 
     @Setter
     @Getter
