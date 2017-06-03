@@ -40,15 +40,10 @@ private Session  session;
     }
 
 
-    public Observable<Iterable<PushBanner>> pushBannerObservable() {
+    public Observable<Iterable<Banner>> pushBannerObservable() {
         return Observable.interval(10, TimeUnit.SECONDS).map(aLong -> {
             Iterable<Banner> banners = session.query(Banner.class, "MATCH (b:Banner) RETURN b", Collections.emptyMap());
-            List<PushBanner> pushBanners = new ArrayList<>();
-            banners.forEach(banner -> {
-                pushBanners.add(mapToPUshbanner(banner));
-
-            });
-            return pushBanners;
+            return banners;
         });
     }
 

@@ -34,13 +34,14 @@ public class DemoBannerPusherHandler implements Handler {
 
     @Override
     public void handle(Context ctx) throws Exception {
-        RxRatpack.promise(this.bannerPusherCreatorService.pushBannerObservable()).map( l -> {
-            Iterable<PushBanner> pushBanners = null;
+        RxRatpack.promise(this.bannerPusherCreatorService.pushBannerObservable()).then( i -> {
 
-           Publisher<PushBanner> pushBannerPublisher = Streams.publish()
+            Publisher<PushBanner> pushBannerPublisher = null;
+            ServerSentEvents serverSentEvents = ServerSentEvents.serverSentEvents(pushBannerPublisher, pushBannerEvent -> {
+                pushBannerEvent.id(Object::toString).event("push").data(pushBanner -> JsonUtil.bannerString(pushBanner));
+            });
 
-
-
+            ctx.render(serverSentEvents);
 
         });
 

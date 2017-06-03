@@ -24,9 +24,8 @@ public class Campagin extends AbstratEntity {
 	private long endDate;
 	private double maxPricePrDay;
 	private long clicks;
-	@Setter
-	@Getter
-	private String token;
+
+
 	
 	@Builder.Default
 	private List<Long> webSiteIds = Lists.newArrayList();
