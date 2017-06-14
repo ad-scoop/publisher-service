@@ -1,27 +1,32 @@
 package com.adscoop.publisher.handlers;
 
 import com.adscoop.publisher.config.JsonUtil;
-import com.adscoop.publisher.entites.PushBanner;
+import com.adscoop.publisher.entites.Banner;
 import com.adscoop.publisher.services.BannerPusherCreatorService;
+import com.google.inject.Singleton;
+import org.apache.commons.collections4.iterators.ArrayListIterator;
+import org.apache.commons.collections4.iterators.IteratorIterable;
 import org.reactivestreams.Publisher;
 import org.slf4j.LoggerFactory;
 import ratpack.handling.Context;
 import ratpack.handling.Handler;
+import ratpack.jackson.Jackson;
 import ratpack.rx.RxRatpack;
+
+
 import ratpack.sse.ServerSentEvents;
+import static ratpack.sse.ServerSentEvents.serverSentEvents;
 import ratpack.stream.Streams;
+import ratpack.stream.TransformablePublisher;
+import rx.Observable;
 import rx.RxReactiveStreams;
-import rx.plugins.RxJavaObservableExecutionHook;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
-import java.util.Objects;
-import java.util.Observable;
 
 /**
  * Created by thokle on 20/05/2017.
  */
-
+@Singleton
 public class DemoBannerPusherHandler implements Handler {
 
     private static org.slf4j.Logger log = LoggerFactory.getLogger(DemoBannerPusherHandler.class);
@@ -34,16 +39,19 @@ public class DemoBannerPusherHandler implements Handler {
 
     @Override
     public void handle(Context ctx) throws Exception {
-        RxRatpack.promise(this.bannerPusherCreatorService.pushBannerObservable()).then( i -> {
+        log.debug("send");
+            Publisher<Banner> bannerPublisher = RxReactiveStreams.toPublisher(this.bannerPusherCreatorService.pushBannerObservable());
 
-            Publisher<PushBanner> pushBannerPublisher = null;
-            ServerSentEvents serverSentEvents = ServerSentEvents.serverSentEvents(pushBannerPublisher, pushBannerEvent -> {
-                pushBannerEvent.id(Object::toString).event("push").data(pushBanner -> JsonUtil.bannerString(pushBanner));
+            ServerSentEvents serverSentEvents = serverSentEvents(bannerPublisher, bannerEvent ->  {
+
+                bannerEvent.id(Long.toString(System.currentTimeMillis())).data( banner -> Jackson.getObjectWriter(ctx).writeValueAsString(banner));
             });
 
             ctx.render(serverSentEvents);
 
-        });
+
+
+
 
     }
 

@@ -1,7 +1,8 @@
 import com.adscoop.publisher.config.ConfigModule;
+import com.adscoop.publisher.handlers.BannerPusherHandler;
 import com.adscoop.publisher.handlers.CorsHandler;
 import com.adscoop.publisher.handlers.DemoBannerPusherHandler;
-import com.adscoop.publisher.handlers.BannerPusherHandler;
+import com.adscoop.publisher.handlers.TestHandler;
 import com.adscoop.publisher.modules.Config;
 import com.adscoop.publisher.modules.ServiceCommonConfigModule;
 import ratpack.guice.Guice;
@@ -18,9 +19,8 @@ public class StartPublisher {
 
         RxRatpack.initialize();
         RatpackServer.start(ratpackServerSpec -> ratpackServerSpec.serverConfig(serverConfigBuilder ->
-                serverConfigBuilder.baseDir(BaseDir.find()).yaml("ratpack.yaml").require("/db", Config.class).props("ratpack.properties").env().sysProps().build()).registry(Guice.registry(bindingsSpec ->
+                serverConfigBuilder.baseDir(BaseDir.find()).yaml("ratpack.yaml").require("/db", Config.class).props("ratpack.properties").development(true).env().sysProps().build()).registry(Guice.registry(bindingsSpec ->
+                bindingsSpec.module(ConfigModule.class).module(ServiceCommonConfigModule.class))).handlers( chain -> chain.all(CorsHandler.class).get(DemoBannerPusherHandler.class).get("prod", BannerPusherHandler.class)));
 
-                bindingsSpec.module(ConfigModule.class).module(ServiceCommonConfigModule.class))).handlers(chain -> chain.all(CorsHandler.class).get("banner/:token", BannerPusherHandler.class).get("demo", DemoBannerPusherHandler.class)));
     }
-
-}
+    }

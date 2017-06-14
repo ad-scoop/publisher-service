@@ -18,7 +18,7 @@ public class JsonUtil {
     }
 
 
-    public static String bannerString(PushBanner bannerNode) {
+    public  String bannerString(PushBanner bannerNode) {
 
         return gson.toJson(bannerNode);
 

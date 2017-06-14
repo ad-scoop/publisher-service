@@ -1,7 +1,6 @@
 package com.adscoop.publisher.handlers;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.google.common.net.HttpHeaders;
 import ratpack.handling.Context;
 import ratpack.handling.Handler;
 import ratpack.http.MutableHeaders;
@@ -11,19 +10,20 @@ import ratpack.http.MutableHeaders;
  */
 public class CorsHandler implements Handler {
 
+
     @Override
     public void handle(Context ctx) throws Exception {
+        MutableHeaders headers = ctx.getResponse().getHeaders();
 
-        MutableHeaders mutableHeaders = ctx.getResponse().getHeaders();
+        headers.set(HttpHeaders.ACCESS_CONTROL_ALLOW_ORIGIN,ctx.getRequest().getHeaders().get("Origin"));
+    headers.set(HttpHeaders.ACCESS_CONTROL_EXPOSE_HEADERS, "*");
+    headers.set(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS , true);
 
-        mutableHeaders.set("Access-Control-Allow-Origin", "*");
-        mutableHeaders.set("Access-Control-Allow-Headers", "x-requested-with, origin, content-type, accept");
-        mutableHeaders.set("Content-Type", "text/event-stream");
 
-        mutableHeaders.set("Connection", "keep-alive");
 
 
         ctx.next();
     }
+
 }
 

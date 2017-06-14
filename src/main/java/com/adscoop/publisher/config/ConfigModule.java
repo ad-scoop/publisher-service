@@ -3,6 +3,7 @@ package com.adscoop.publisher.config;
 import com.adscoop.publisher.handlers.DemoBannerPusherHandler;
 import com.adscoop.publisher.handlers.BannerPusherHandler;
 import com.adscoop.publisher.handlers.CorsHandler;
+import com.adscoop.publisher.handlers.TestHandler;
 import com.adscoop.publisher.modules.ServiceCommonConfigModule;
 import com.adscoop.publisher.services.BannerPusherCreatorService;
 import com.google.inject.AbstractModule;
@@ -19,5 +20,6 @@ public class ConfigModule extends AbstractModule {
         bind(ServiceCommonConfigModule.class).asEagerSingleton();
         bind(DemoBannerPusherHandler.class).asEagerSingleton();
         bind(BannerPusherCreatorService.class).asEagerSingleton();
+        bind(TestHandler.class).asEagerSingleton();
     }
 }
