@@ -11,14 +11,12 @@ import org.slf4j.LoggerFactory;
 import ratpack.handling.Context;
 import ratpack.handling.Handler;
 import ratpack.jackson.Jackson;
-import ratpack.rx.RxRatpack;
+
 
 
 import ratpack.sse.ServerSentEvents;
 import static ratpack.sse.ServerSentEvents.serverSentEvents;
-import ratpack.stream.Streams;
-import ratpack.stream.TransformablePublisher;
-import rx.Observable;
+
 import rx.RxReactiveStreams;
 
 import javax.inject.Inject;
@@ -40,14 +38,6 @@ public class DemoBannerPusherHandler implements Handler {
     @Override
     public void handle(Context ctx) throws Exception {
         log.debug("send");
-            Publisher<Banner> bannerPublisher = RxReactiveStreams.toPublisher(this.bannerPusherCreatorService.pushBannerObservable());
-
-            ServerSentEvents serverSentEvents = serverSentEvents(bannerPublisher, bannerEvent ->  {
-
-                bannerEvent.id(Long.toString(System.currentTimeMillis())).data( banner -> Jackson.getObjectWriter(ctx).writeValueAsString(banner));
-            });
-
-            ctx.render(serverSentEvents);
 
 
 

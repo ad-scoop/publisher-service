@@ -1,24 +1,24 @@
 package com.adscoop.publisher.handlers;
 
 
-import com.adscoop.publisher.entites.Banner;
 import com.adscoop.publisher.entites.PushBanner;
 import com.adscoop.publisher.services.BannerPusherCreatorService;
 import com.google.inject.Inject;
-import org.reactivestreams.Publisher;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ratpack.exec.Promise;
+import ratpack.exec.util.ParallelBatch;
 import ratpack.handling.Context;
 import ratpack.handling.Handler;
 import ratpack.jackson.Jackson;
 import ratpack.rx.RxRatpack;
 import ratpack.sse.ServerSentEvents;
-import ratpack.stream.Streams;
-import rx.Observable;
-import rx.Scheduler;
 
-import java.time.Duration;
- import static ratpack.stream.Streams.periodically;
+import ratpack.stream.TransformablePublisher;
+import rx.Observable;
+
+import java.util.Objects;
 
 
 /**
@@ -38,27 +38,21 @@ public class BannerPusherHandler implements Handler {
     @Override
     public void handle(Context ctx) throws Exception {
 
-        Observable<Banner> bannerObservable =  this.bannerNodeService.pushBannerObservable();
+String name= ctx.getPathTokens().get("name");
 
-        RxRatpack.promise(bannerObservable).operation( banners  -> banners.parallelStream().forEach(pushBanner -> {
-         long start =    System.currentTimeMillis();
-            logger.debug("send banner " + pushBanner);
-            Publisher<Banner> pushBannerPublisher = periodically(ctx,Duration.ofSeconds(50), i -> i < banners.size() ? pushBanner : null);
+        RxRatpack.publisher(Observable.just(this.bannerNodeService.getBannersByCampagin(name))).multicast().toPromise().then((banners -> {
 
-        ServerSentEvents serverSentEvents  = ServerSentEvents.serverSentEvents(pushBannerPublisher, pushBannerEvent -> pushBannerEvent.id(Object::toString).data(pushBanner1 -> Jackson.getObjectWriter(ctx).writeValueAsString(pushBanner1)));
-        int hasCode =  serverSentEvents.hashCode();
+            if(banners != null) {
+                TransformablePublisher<Iterable<PushBanner>> pub = ParallelBatch.of(Promise.value(banners)).publisher();
 
-            ctx.render(serverSentEvents);
-            long end = System.currentTimeMillis();
-
-            try {
+                ctx.render(ServerSentEvents.serverSentEvents(pub, tEvent -> tEvent.id(Objects::toString).data(t -> Jackson.getObjectWriter(ctx).writeValueAsString(t))));
+                logger.debug("has sent");
                 Thread.sleep(10000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+
             }
-            logger.debug("timer "+ String.valueOf( end - start));
 
         }));
+
 
     }
 }

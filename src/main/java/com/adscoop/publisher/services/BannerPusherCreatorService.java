@@ -3,14 +3,13 @@ package com.adscoop.publisher.services;
 import com.adscoop.publisher.entites.Banner;
 import com.adscoop.publisher.entites.PushBanner;
 import com.google.inject.Singleton;
+import org.apache.commons.collections4.iterators.ArrayListIterator;
+import org.apache.commons.collections4.iterators.IteratorIterable;
 import org.neo4j.ogm.session.Session;
-import rx.Observable;
+
 
 import javax.inject.Inject;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.TimeUnit;
+import java.util.*;
 
 
 /**
@@ -27,50 +26,49 @@ public class BannerPusherCreatorService {
     }
 
 
+    public  Iterable<Banner> banners(){
 
-    public Observable<Banner> pushBannerObservable() {
-           return  Observable.interval(1,TimeUnit.SECONDS).map(aLong -> {
-                     Banner banner = new Banner();
-                     banner.setClicks(21);
-                     banner.setHeight(100);
-
-                     return banner;
-
-             });
+        return  session.query(Banner.class, "MATCH (b:Banner) return b limit 5",Collections.emptyMap());
 
     }
 
-    public Observable<PushBanner> getPushBanners(){
+    public List<PushBanner> pushBanners() {
+        Iterable<Banner> banners = session.query(Banner.class, "MATCH (b:Banner) RETURN b LIMIT 5", Collections.emptyMap());
 
-        Iterable<Banner>  banners = session.query(Banner.class, "match (b:Banner) return b", Collections.emptyMap());
         List<PushBanner> pushBanners = new ArrayList<>();
-
-        banners.iterator().forEachRemaining( banner -> {
+        banners.iterator().forEachRemaining(banner -> {
             PushBanner pushBanner = new PushBanner();
-            pushBanner.setImg_url(banner.getPicture());
-            pushBanner.setWidth(banner.getWidth());
             pushBanner.setHeight(banner.getHeight());
-            pushBanners.add(pushBanner);
+            pushBanner.setWidth(banner.getWidth());
 
         });
-
-        Observable<PushBanner> val = Observable.from(pushBanners);
-return val;
-
+        return pushBanners;
     }
 
 
+    public Iterable<PushBanner> getBannersByCampagin(String name){
+        Map<String, String> map = new HashMap<>();
 
-    public  Observable<Banner> bannerObservable(){
-        return Observable.interval(1, TimeUnit.SECONDS).map( aLong -> {
+        map.put("name",name);
+       Iterable<Banner> banners = session.query(Banner.class, "MATCH (c:Campagin)-[:CAMPAGIN_HAS_BANNERS]->(b:Banner) where c.name={name} return b", map);
+       List<PushBanner> pushBanners = new ArrayList<>();
 
-            Banner banner = new Banner();
-            banner.setPicture("url");
+       banners.iterator().forEachRemaining(banner -> {
+           PushBanner pushBanner = new PushBanner();
 
-return banner;
-        });
+           pushBanner.setClickUrl("/click/"+banner.getId());
+           pushBanner.setUpdateUrl("/update"+banner.getId());
+            pushBanner.setImg_url(banner.getPicture());
+
+           pushBanners.add(pushBanner);
+       });
+
+
+        Iterable<PushBanner> iterable = new ArrayList<>(pushBanners);
+
+        return iterable;
+
     }
-
 
     public PushBanner mapToPUshbanner(Banner m) {
         PushBanner pushBanner = new PushBanner();
