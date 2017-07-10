@@ -70,11 +70,5 @@ public class BannerPusherCreatorService {
 
     }
 
-    public PushBanner mapToPUshbanner(Banner m) {
-        PushBanner pushBanner = new PushBanner();
-        pushBanner.setWidth(m.getWidth());
-        pushBanner.setImg_url(m.getPicture());
 
-        return pushBanner;
-    }
 }

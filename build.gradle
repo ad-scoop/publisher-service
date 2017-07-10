@@ -30,12 +30,6 @@ buildscript {
 
 
 
-docker {
-    javaApplication {
-        maintainer = 'Thomas Kleist "thomas@kleist-it.com"'
-        port = 8183
-    }
-}
 
 repositories {
     jcenter()
@@ -70,4 +64,8 @@ dependencies {
     compile group: 'com.google.guava', name: 'guava', version: '21.0'
 }
 
+
+distZip {
+    archiveName = baseName + ".zip"
+}
 mainClassName = 'StartPublisher'
