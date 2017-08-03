@@ -29,24 +29,8 @@ public class BannerPusherCreatorService {
     }
 
 
-    public  Iterable<Banner> banners(){
 
-        return  session.query(Banner.class, "MATCH (b:Banner) return b limit 5",Collections.emptyMap());
 
-    }
-
-    public List<PushBanner> pushBanners() {
-        Iterable<Banner> banners = session.query(Banner.class, "MATCH (b:Banner) RETURN b LIMIT 5", Collections.emptyMap());
-
-        List<PushBanner> pushBanners = new ArrayList<>();
-        banners.iterator().forEachRemaining(banner -> {
-            PushBanner pushBanner = new PushBanner();
-            pushBanner.setHeight(banner.getHeight());
-            pushBanner.setWidth(banner.getWidth());
-
-        });
-        return pushBanners;
-    }
 
 
     public Iterable<PushBanner> getBannersByCampagin(String name){

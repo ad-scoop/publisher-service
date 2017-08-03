@@ -20,6 +20,6 @@ public class StartPublisher {
         RatpackServer.start(ratpackServerSpec -> ratpackServerSpec.serverConfig(serverConfigBuilder ->
                 serverConfigBuilder.baseDir(BaseDir.find()).yaml("ratpack.yaml").require("/db", Config.class).props("ratpack.properties").development(true).env().sysProps().build()).registry(Guice.registry(bindingsSpec ->
                 bindingsSpec.module(ConfigModule.class).module(ServiceCommonConfigModule.class))).
-                handlers( chain -> chain.prefix("demo", chain1 -> chain1.all(CorsHandler.class).get("try/:name", BannerPusherHandler.class))));
+                handlers( chain -> chain.prefix("publisher-service", chain1 -> chain1.all(CorsHandler.class).get("try/:name", BannerPusherHandler.class))));
     }
     }
