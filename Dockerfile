@@ -8,4 +8,4 @@ RUN apk add bash
 RUN cd /usr/lib/adscoop/ && unzip publisher-service.zip
 RUN rm /usr/lib/adscoop/publisher-service.zip
 
-EXPOSE 8383
+EXPOSE 8184
