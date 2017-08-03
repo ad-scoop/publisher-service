@@ -1,15 +1,18 @@
 package com.adscoop.publisher.services;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.inject.Inject;
+
+import org.neo4j.ogm.session.Session;
+
 import com.adscoop.publisher.entites.Banner;
 import com.adscoop.publisher.entites.PushBanner;
 import com.google.inject.Singleton;
-import org.apache.commons.collections4.iterators.ArrayListIterator;
-import org.apache.commons.collections4.iterators.IteratorIterable;
-import org.neo4j.ogm.session.Session;
-
-
-import javax.inject.Inject;
-import java.util.*;
 
 
 /**

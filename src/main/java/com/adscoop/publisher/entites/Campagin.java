@@ -8,7 +8,11 @@ import org.neo4j.ogm.annotation.Relationship;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.common.collect.Lists;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @NodeEntity
 @JsonIgnoreProperties(ignoreUnknown = true)

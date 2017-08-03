@@ -1,8 +1,8 @@
 package com.adscoop.publisher.config;
 
-import com.adscoop.publisher.handlers.DemoBannerPusherHandler;
 import com.adscoop.publisher.handlers.BannerPusherHandler;
 import com.adscoop.publisher.handlers.CorsHandler;
+import com.adscoop.publisher.handlers.DemoBannerPusherHandler;
 import com.adscoop.publisher.handlers.TestHandler;
 import com.adscoop.publisher.modules.ServiceCommonConfigModule;
 import com.adscoop.publisher.services.BannerPusherCreatorService;

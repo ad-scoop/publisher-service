@@ -1,12 +1,15 @@
 package com.adscoop.publisher.handlers;
 
 
+import java.util.Objects;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.adscoop.publisher.entites.PushBanner;
 import com.adscoop.publisher.services.BannerPusherCreatorService;
 import com.google.inject.Inject;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import ratpack.exec.Promise;
 import ratpack.exec.util.ParallelBatch;
 import ratpack.handling.Context;
@@ -14,11 +17,8 @@ import ratpack.handling.Handler;
 import ratpack.jackson.Jackson;
 import ratpack.rx.RxRatpack;
 import ratpack.sse.ServerSentEvents;
-
 import ratpack.stream.TransformablePublisher;
 import rx.Observable;
-
-import java.util.Objects;
 
 
 /**

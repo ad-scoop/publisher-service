@@ -1,11 +1,15 @@
 package com.adscoop.publisher.entites;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.*;
-import org.neo4j.ogm.annotation.NodeEntity;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import org.neo4j.ogm.annotation.NodeEntity;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 
 @NodeEntity
 @JsonIgnoreProperties(ignoreUnknown = true)

@@ -1,11 +1,12 @@
 package com.adscoop.publisher.modules;
 
-import com.google.inject.Inject;
+import java.io.IOException;
+
 import org.neo4j.ogm.config.Configuration;
 import org.neo4j.ogm.session.Session;
 import org.neo4j.ogm.session.SessionFactory;
 
-import java.io.IOException;
+import com.google.inject.Inject;
 
 
 public class ConnectionSource {

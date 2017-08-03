@@ -1,6 +1,7 @@
 package com.adscoop.publisher.handlers;
 
 import com.google.common.net.HttpHeaders;
+
 import ratpack.handling.Context;
 import ratpack.handling.Handler;
 import ratpack.http.MutableHeaders;

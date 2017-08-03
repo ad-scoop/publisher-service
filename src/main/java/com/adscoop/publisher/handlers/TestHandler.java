@@ -1,18 +1,18 @@
 package com.adscoop.publisher.handlers;
 
-import com.sun.security.ntlm.Server;
-import org.apache.commons.collections4.iterators.ArrayListIterator;
-import org.apache.commons.collections4.iterators.IteratorIterable;
-import org.reactivestreams.Publisher;
-import ratpack.handling.Context;
-import ratpack.handling.Handler;
-import ratpack.sse.ServerSentEvents;
-import ratpack.stream.Streams;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+
+import org.apache.commons.collections4.iterators.ArrayListIterator;
+import org.apache.commons.collections4.iterators.IteratorIterable;
+import org.reactivestreams.Publisher;
+
+import ratpack.handling.Context;
+import ratpack.handling.Handler;
+import ratpack.sse.ServerSentEvents;
+import ratpack.stream.Streams;
 
 public class TestHandler implements Handler{
     @Override

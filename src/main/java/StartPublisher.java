@@ -1,10 +1,9 @@
 import com.adscoop.publisher.config.ConfigModule;
 import com.adscoop.publisher.handlers.BannerPusherHandler;
 import com.adscoop.publisher.handlers.CorsHandler;
-import com.adscoop.publisher.handlers.DemoBannerPusherHandler;
-import com.adscoop.publisher.handlers.TestHandler;
 import com.adscoop.publisher.modules.Config;
 import com.adscoop.publisher.modules.ServiceCommonConfigModule;
+
 import ratpack.guice.Guice;
 import ratpack.rx.RxRatpack;
 import ratpack.server.BaseDir;

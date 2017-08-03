@@ -1,9 +1,12 @@
 package com.adscoop.publisher.entites;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.*;
-import org.neo4j.ogm.annotation.NodeEntity;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * Created by kleistit on 14/05/2017.
