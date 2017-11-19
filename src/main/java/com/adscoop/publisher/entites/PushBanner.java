@@ -1,12 +1,7 @@
 package com.adscoop.publisher.entites;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * Created by kleistit on 14/05/2017.
@@ -19,37 +14,34 @@ import lombok.Setter;
 @AllArgsConstructor
 public class PushBanner {
 
+    @Getter
+    @Setter
+    private long id;
 
     @Getter
     @Setter
-    private String img_url;
-
-    @Setter
-    @Getter
     private int width;
-
-    @Setter
     @Getter
+    @Setter
+    private long clicks;
+    @Getter
+    @Setter
+    private String picture;
+    @Getter
+    @Setter
     private int height;
-
-    @Setter
-    @Getter
-    private String updateUrl;
-    @Setter
-    @Getter
-    private String positon_h;
-    @Setter
-    @Getter
-    private String position_v;
-
     @Getter
     @Setter
-    private String token;
-
-   @Getter
-   @Setter
-    private String clickUrl;
-
+    private long endDate;
+    @Getter
+    @Setter
+    private int maxPricePrDay;
+    @Getter
+    @Setter
+    private String name;
+    @Getter
+    @Setter
+    private long startDate;
 
 
 }

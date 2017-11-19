@@ -47,7 +47,7 @@ String name= ctx.getPathTokens().get("name");
 
                 ctx.render(ServerSentEvents.serverSentEvents(pub, tEvent -> tEvent.id(Objects::toString).data(t -> Jackson.getObjectWriter(ctx).writeValueAsString(t))));
                 logger.debug("has sent");
-                Thread.sleep(10000);
+
 
             }
 
