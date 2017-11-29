@@ -15,6 +15,9 @@ import org.neo4j.ogm.annotation.Relationship;
 @NodeEntity
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Banner extends AbstratEntity {
+
+
+
     @Getter
     @Setter
     private Integer width;

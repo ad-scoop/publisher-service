@@ -22,8 +22,8 @@ public class ConnectionSource {
     }
 
     private Configuration configuration(Config config) throws IOException {
-        Configuration configuration = new Configuration();
-        configuration.driverConfiguration().setDriverClassName(config.getDriver_class_name()).setCredentials(config.getUsername(), config.getPassword()).setURI(config.getNeo4Url());
+        Configuration configuration = new Configuration.Builder().uri(config.getNeo4Url()).credentials(config.getUsername(),config.getPassword()).build();
+
         return configuration;
 
     }

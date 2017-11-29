@@ -33,30 +33,15 @@ public class BannerPusherCreatorService {
         Map<String, String> map = new HashMap<>();
         List<PushBanner> pushBanners = new ArrayList<>();
         map.put("name", name);
-        Result banners = session.query("MATCH (c:Campagin)-[:CAMPAGIN_HAS_BANNERS]->(b:Banner) WHERE c.name={name} RETURN b,c AS n", map);
 
+        Result banners = session.query("RETURN apoc.version() ", map);
 
-        banners.queryResults().iterator().forEachRemaining(stringObjectMap -> stringObjectMap.forEach((s, o) -> {
-            PushBanner pushBanner = new PushBanner();
-            if (o instanceof Campagin) {
-                Campagin campagin = ((Campagin) o);
-                pushBanner.setClicks(campagin.getClicks());
-                pushBanner.setEndDate(campagin.getEndDate());
-                pushBanner.setStartDate(campagin.getStartDate());
-                pushBanner.setName(Optional.of(campagin.getName()).orElse("no name"));
-                log.debug("Instance of Campagin");
-            } else if (o instanceof Banner) {
-                Banner banner = ((Banner) o);
-                pushBanner.setId(banner.getId());
-                pushBanner.setPicture(banner.getPicture());
-                pushBanner.setHeight(Optional.of(banner.getHeight()).orElse(300));
-                pushBanner.setWidth(Optional.of(banner.getWidth()).orElse(600));
-                log.debug("Instance of Banner");
-            }
-            pushBanners.add(pushBanner);
-        }));
+        Iterator<Map<String, Object>> res = banners.queryResults().iterator();
+
 
         Iterable<PushBanner> iterable = new ArrayList<>(pushBanners);
+
+
         return iterable;
 
     }
