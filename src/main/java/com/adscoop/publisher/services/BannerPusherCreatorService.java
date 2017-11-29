@@ -34,9 +34,10 @@ public class BannerPusherCreatorService {
         List<PushBanner> pushBanners = new ArrayList<>();
         map.put("name", name);
 
-        Result banners = session.query("RETURN apoc.version() ", map);
-
-        Iterator<Map<String, Object>> res = banners.queryResults().iterator();
+        Iterable<PushBanner> banners = session.query(PushBanner.class, "MATCH (c:Campagin)-[r:CAMPAGIN_HAS_BANNERS]->(b:Banner)   where c.name=={name}" +
+                "WITH c,collect(properties(b)) as list  " +
+                "CALL apoc.create.vNode(['Label'], list) YIELD node" +
+                "return  node ", Collections.singletonMap("name", name));
 
 
         Iterable<PushBanner> iterable = new ArrayList<>(pushBanners);
