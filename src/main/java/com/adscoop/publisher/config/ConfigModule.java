@@ -20,7 +20,7 @@ public class ConfigModule extends AbstractModule {
         bind(ServiceCommonConfigModule.class).asEagerSingleton();
         bind(DemoBannerPusherHandler.class).asEagerSingleton();
         bind(BannerPusherCreatorService.class).asEagerSingleton();
-        bind(TestHandler.class).asEagerSingleton();
+
         bind(SchedulerTimerService.class).asEagerSingleton();
         bind(SchedulerAction.class).asEagerSingleton();
         bind(TimerHandler.class).asEagerSingleton();
