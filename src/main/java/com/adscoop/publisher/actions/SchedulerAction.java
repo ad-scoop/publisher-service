@@ -28,7 +28,6 @@ public class SchedulerAction {
 
 
     public void startScheduler() {
-                              this._bannerPusherCreatorService.getBannersByTimer();
 
 
     }

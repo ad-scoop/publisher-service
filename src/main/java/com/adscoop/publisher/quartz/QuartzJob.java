@@ -22,6 +22,6 @@ public class QuartzJob implements Job {
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-            bannerPusherCreatorService.getBannersByTimer();
+
     }
 }

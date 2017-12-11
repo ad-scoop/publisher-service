@@ -30,7 +30,7 @@ public class StartPublisher {
                 bindingsSpec.module(ConfigModule.class)
                         .module(ServiceCommonConfigModule.class).bind(SchedulerTimerService.class)
                         )).
-                handlers(chain -> chain.prefix("publisher-service", chain1 -> chain1.all(CorsHandler.class)
+                handlers(chain -> chain.prefix("demo", chain1 -> chain1.all(CorsHandler.class)
                         .get("try/:name", BannerPusherHandler.class).get("timer/:name/:sec", TimerHandler.class).get("token/:token", HandlerByToken.class))));
 
     }
